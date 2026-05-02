@@ -1,4 +1,5 @@
 import { createSocket, Socket, RemoteInfo } from "dgram";
+import { isIPv4 } from "net";
 import { TypedEmitter } from "tiny-typed-emitter";
 import * as NodeRSA from "node-rsa";
 import { Readable } from "stream";
@@ -565,6 +566,17 @@ export class P2PClientProtocol extends TypedEmitter<P2PClientProtocolEvents> {
     }, this.LOOKUP_RETRY_TIMEOUT);
   }
 
+  private preferredAddressDirectConnect(host: string): void {
+    if (isIPv4(host) && !host.endsWith(".0") && !host.endsWith(".255")) {
+      rootP2PLogger.debug(`Trying direct preferred address for station ${this.rawStation.station_sn}`, {
+        stationSN: this.rawStation.station_sn,
+        host: host,
+        port: 32100,
+      });
+      this._connect({ host: host, port: 32100 }, this.rawStation.p2p_did);
+    }
+  }
+
   private cloudLookup2(): void {
     this.cloudAddresses.map((address) => this.cloudLookupByAddress2(address));
     this._clearLookup2RetryTimeout();
@@ -650,6 +662,7 @@ export class P2PClientProtocol extends TypedEmitter<P2PClientProtocolEvents> {
       }
     }
     this.localLookup(host);
+    this.preferredAddressDirectConnect(host);
     this.cloudLookup();
 
     this._clearLookup2Timeout();
