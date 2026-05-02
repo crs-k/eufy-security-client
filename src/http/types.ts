@@ -103,6 +103,7 @@ export enum DeviceType {
   LOCK_85V0 = 203,
   NVR_S4_MAX = 300, //T8N00
   CAMERA_POE_S4 = 301, //T8E00
+  CAMERA_POE_E41 = 303, //T8P10
   WALL_LIGHT_CAM_81A0 = 10005,
   INDOOR_PT_CAMERA_C220 = 10008, // T8W11C
   INDOOR_PT_CAMERA_C210 = 10009, // T8419 / T8W11P?
@@ -1068,6 +1069,7 @@ export const GenericTypeProperty: PropertyMetadataNumeric = {
     203: "FamiLock S3 (T85V0)",
     300: "NVR S4 Max (T8N00)",
     301: "PoE Bullet-PTZ Cam S4 (T8E00)",
+    303: "PoE Turret Cam E41 (T8P10)",
     10005: "Solar Wall Light Cam S120 (T81A0)",
     10008: "Indoor Cam C220 (T8W11C)",
     10009: "Indoor Cam C210 (T8419)",
@@ -8792,6 +8794,7 @@ export const DeviceProperties: Properties = {
 
 DeviceProperties[DeviceType.INDOOR_PT_CAMERA_C220_V2] = DeviceProperties[DeviceType.INDOOR_PT_CAMERA_C220];
 DeviceProperties[DeviceType.INDOOR_PT_CAMERA_C220_V3] = DeviceProperties[DeviceType.INDOOR_PT_CAMERA_C220];
+DeviceProperties[DeviceType.CAMERA_POE_E41] = DeviceProperties[DeviceType.CAMERA_POE_S4];
 
 export const StationNameProperty: PropertyMetadataString = {
   key: "station_name",
@@ -10824,6 +10827,7 @@ export const DeviceCommands: Commands = {
 
 DeviceCommands[DeviceType.INDOOR_PT_CAMERA_C220_V2] = DeviceCommands[DeviceType.INDOOR_PT_CAMERA_C220];
 DeviceCommands[DeviceType.INDOOR_PT_CAMERA_C220_V3] = DeviceCommands[DeviceType.INDOOR_PT_CAMERA_C220];
+DeviceCommands[DeviceType.CAMERA_POE_E41] = DeviceCommands[DeviceType.CAMERA_POE_S4];
 
 export const StationCommands: Commands = {
   [DeviceType.STATION]: [
