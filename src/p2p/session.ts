@@ -568,7 +568,7 @@ export class P2PClientProtocol extends TypedEmitter<P2PClientProtocolEvents> {
 
   private preferredAddressDirectConnect(host: string): void {
     if (isIPv4(host) && !host.endsWith(".0") && !host.endsWith(".255")) {
-      rootP2PLogger.debug(`Trying direct preferred address for station ${this.rawStation.station_sn}`, {
+      rootP2PLogger.info(`Trying direct preferred address for station ${this.rawStation.station_sn}`, {
         stationSN: this.rawStation.station_sn,
         host: host,
         port: 32100,
